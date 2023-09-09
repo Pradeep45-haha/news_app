@@ -1,23 +1,6 @@
-// import "package:dio/dio.dart";
-// import 'package:flutter/material.dart';
-// import 'package:retrofit/retrofit.dart';
-// import 'package:news_app/core/constant/constants.dart';
 import 'package:news_app/core/resources/data_state.dart';
 import 'package:news_app/core/utils/utils.dart';
 import 'package:http/http.dart';
-
-// part "news_api_service.g.dart";
-
-// @RestApi(baseUrl: baseUrl)
-// abstract class NewsApiService {
-//   factory NewsApiService(Dio dio) = _NewsApiService;
-//   @GET("/top-headlines")
-//   Future<HttpResponse<List<ArticleModel>>> getNewsArticles({
-//     @Query("apiKey") String? apiKey,
-//     @Query("country") String? country,
-//     @Query("category") String? category,
-//   });
-// }
 
 class BadHttpRequest implements ClientException {
   final String _uri;

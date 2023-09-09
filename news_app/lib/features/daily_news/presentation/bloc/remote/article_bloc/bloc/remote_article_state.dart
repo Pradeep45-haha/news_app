@@ -10,11 +10,13 @@ sealed class RemoteArticleState extends Equatable {
 
 final class RemoteArticlesState extends RemoteArticleState {
   final List<ArticleEntity>? articles;
-  final DioException? exception;
 
-  RemoteArticlesState({this.articles, this.exception})
-      : super(
-          forEquatable: [articles!, exception!],
+  RemoteArticlesState({
+    this.articles,
+  }) : super(
+          forEquatable: [
+            articles!,
+          ],
         );
 }
 

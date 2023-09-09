@@ -6,4 +6,5 @@ abstract class ArticleRepository {
     required String category,
     required String country,
   });
+  
 }
