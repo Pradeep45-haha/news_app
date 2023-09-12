@@ -22,11 +22,7 @@ class ArticleModel extends ArticleEntity {
   });
 
   factory ArticleModel.fromJson(Map<String, dynamic> map) {
-    //debugPrint(map.runtimeType.toString());
-    //debugPrint(map.toString());
-    //String? tempAuthor = map["author"];
-    //debugPrint(tempAuthor);
-    //debugPrint(map["author"]);
+    
     return ArticleModel(
       author: map["author"].toString(),
       content: map["content"].toString(),
