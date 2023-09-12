@@ -25,12 +25,11 @@ class ArticleRepositoryImp implements ArticleRepository {
       List<dynamic> listOfArticles = jsonMap["articles"];
       //debugPrint(listOfArticles.toString());
       for (int i = 0; i < listOfArticles.length; i++) {
-        //debugPrint("from data layer");
-        //debugPrint(listOfArticles[i].toString());
+        
         articleModel.add(ArticleModel.fromJson(listOfArticles[i]));
-        //debugPrint(articleModel.toString());
+        
       }
-      //debugPrint(articleModel.toString());
+      
       DataState<List<ArticleModel>> successDataState =
           DataSuccess<List<ArticleModel>>(
         articleModel,
