@@ -1,6 +1,7 @@
 import 'package:http/http.dart';
 import 'package:news_app/core/resources/data_state.dart';
-import 'package:news_app/features/daily_news/data/data_sources/remote/news_api_service.dart';
+import 'package:news_app/core/resources/http_exception.dart';
+
 
 
 DataState handleHttpError(Response response) {
