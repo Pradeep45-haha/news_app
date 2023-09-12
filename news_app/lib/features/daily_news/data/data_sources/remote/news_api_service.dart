@@ -1,5 +1,6 @@
 import 'package:news_app/core/resources/data_state.dart';
-import 'package:news_app/core/utils/utils.dart';
+import 'package:news_app/core/utils/http_error_handler.dart';
+import 'package:news_app/core/utils/url_builder.dart';
 import 'package:http/http.dart';
 
 class BadHttpRequest implements ClientException {
