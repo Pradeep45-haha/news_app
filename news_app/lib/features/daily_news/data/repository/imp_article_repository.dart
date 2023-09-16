@@ -23,13 +23,11 @@ class ArticleRepositoryImp implements ArticleRepository {
       List<ArticleModel> articleModel = [];
       Map<String, dynamic> jsonMap = jsonDecode(dataState.data.body);
       List<dynamic> listOfArticles = jsonMap["articles"];
-      //debugPrint(listOfArticles.toString());
+
       for (int i = 0; i < listOfArticles.length; i++) {
-        
         articleModel.add(ArticleModel.fromJson(listOfArticles[i]));
-        
       }
-      
+
       DataState<List<ArticleModel>> successDataState =
           DataSuccess<List<ArticleModel>>(
         articleModel,
@@ -37,5 +35,23 @@ class ArticleRepositoryImp implements ArticleRepository {
       return successDataState;
     }
     return dataState;
+  }
+  
+  @override
+  Future<void> saveNewsArticles() {
+    // TODO: implement saveNewsArticles
+    throw UnimplementedError();
+  }
+  
+  @override
+  Future<DataState> getSavedNewsArticles() {
+    // TODO: implement getSavedNewsArticles
+    throw UnimplementedError();
+  }
+  
+  @override
+  Future<void> removeArticles() {
+    // TODO: implement removeArticles
+    throw UnimplementedError();
   }
 }

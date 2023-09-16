@@ -6,5 +6,8 @@ abstract class ArticleRepository {
     required String category,
     required String country,
   });
-  
+
+  Future<void> saveNewsArticles();
+  Future<DataState> getSavedNewsArticles();
+  Future<void> removeArticles();
 }

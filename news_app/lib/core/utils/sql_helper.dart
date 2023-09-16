@@ -68,6 +68,11 @@ CREATE TABLE NEWS_ARTICLES(
     return db.query("NEWS_ARTICLES", where: "id =?", whereArgs: [id], limit: 1);
   }
 
+  static Future<void> deleteNewArticles() async {
+    final db = await SqlHelper.db();
+    db.delete("NEWS_ARTICLES");
+  }
+
   static Future<int> updateNewsArticle({
     required num id,
     String? author,
