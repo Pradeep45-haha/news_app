@@ -1,12 +1,14 @@
 import 'package:news_app/core/resources/data_state.dart';
-import 'package:news_app/core/utils/sql_helper.dart';
+import 'package:news_app/core/utils/database_helper.dart';
 import 'package:news_app/features/daily_news/domain/entities/article.dart';
 
 class LocalGetNewsApiService {
+  final DatabaseHelper databaseHelper;
+  LocalGetNewsApiService({required  this.databaseHelper});
   Future<void> saveNewsArticles({required ArticleEntity articleEntity}) async {
-    final db = await SqlHelper.db();
-    SqlHelper.createTable(db);
-    SqlHelper.postNewsArticle(
+    final db = await databaseHelper.createDatabase();
+    databaseHelper.createSchema(db);
+    databaseHelper.saveNewsArticles(
         author: articleEntity.author!,
         title: articleEntity.title!,
         description: articleEntity.description!,
@@ -20,12 +22,12 @@ class LocalGetNewsApiService {
 
   Future<DataState> getSavedNewsArticles() async {
     final List<Map<String, dynamic>> newsArticles =
-        await SqlHelper.getNewsArticles();
+        await databaseHelper.getNewsArticles();
     DataSuccess dataSuccess = DataSuccess(newsArticles);
     return dataSuccess;
   }
 
   Future<void> removeNewsArticles() async {
-    SqlHelper.deleteNewArticles();
+    databaseHelper.removeNewsArticles();
   }
 }

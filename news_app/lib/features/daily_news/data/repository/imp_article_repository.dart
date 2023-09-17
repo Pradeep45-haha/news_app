@@ -1,12 +1,15 @@
 import 'dart:convert';
 import 'package:news_app/core/resources/data_state.dart';
+import 'package:news_app/features/daily_news/data/data_sources/local/local_news_api_service.dart';
 import 'package:news_app/features/daily_news/data/data_sources/remote/news_api_service.dart';
 import 'package:news_app/features/daily_news/data/models/article.dart';
+import 'package:news_app/features/daily_news/domain/entities/article.dart';
 import '../../domain/repository/i_article_repository.dart';
 
 class ArticleRepositoryImp implements ArticleRepository {
   final NewsApiService _newsApiService;
-  ArticleRepositoryImp(this._newsApiService);
+  final LocalGetNewsApiService _localGetNewsApiService;
+  ArticleRepositoryImp(this._newsApiService, this._localGetNewsApiService);
 
   @override
   Future<DataState> getNewsArticles({
@@ -36,22 +39,21 @@ class ArticleRepositoryImp implements ArticleRepository {
     }
     return dataState;
   }
-  
+
   @override
-  Future<void> saveNewsArticles() {
-    // TODO: implement saveNewsArticles
-    throw UnimplementedError();
+  Future<void> saveNewsArticles({required ArticleEntity articleEntity}) {
+    return _localGetNewsApiService.saveNewsArticles(
+        articleEntity: articleEntity);
   }
-  
+
   @override
-  Future<DataState> getSavedNewsArticles() {
-    // TODO: implement getSavedNewsArticles
-    throw UnimplementedError();
+  Future<DataState> getSavedNewsArticles() async {
+    final dataState = await _localGetNewsApiService.getSavedNewsArticles();
+    return dataState;
   }
-  
+
   @override
   Future<void> removeArticles() {
-    // TODO: implement removeArticles
-    throw UnimplementedError();
+    return _localGetNewsApiService.removeNewsArticles();
   }
 }
