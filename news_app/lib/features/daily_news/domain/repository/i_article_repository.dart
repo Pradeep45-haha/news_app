@@ -11,4 +11,5 @@ abstract class ArticleRepository {
   Future<void> saveNewsArticles({required ArticleEntity articleEntity});
   Future<DataState> getSavedNewsArticles();
   Future<void> removeArticles();
+  Future<int> updateArticle({required ArticleEntity articleEntity, required int id});
 }

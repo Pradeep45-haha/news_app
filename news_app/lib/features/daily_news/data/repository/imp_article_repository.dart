@@ -56,4 +56,15 @@ class ArticleRepositoryImp implements ArticleRepository {
   Future<void> removeArticles() {
     return _localGetNewsApiService.removeNewsArticles();
   }
+
+  @override
+  Future<int> updateArticle({
+    required ArticleEntity articleEntity,
+    required int id,
+  }) async {
+    return await _localGetNewsApiService.updateNewsArticles(
+      articleEntity: articleEntity,
+      id: id,
+    );
+  }
 }
