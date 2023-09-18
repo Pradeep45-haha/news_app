@@ -4,8 +4,8 @@ import "package:news_app/features/daily_news/data/data_sources/local/local_news_
 import "package:news_app/features/daily_news/data/data_sources/remote/news_api_service.dart";
 import "package:news_app/features/daily_news/data/repository/imp_article_repository.dart";
 import "package:news_app/features/daily_news/domain/repository/i_article_repository.dart";
-import 'package:news_app/features/daily_news/domain/usecases/get_articles.dart';
-import "package:news_app/features/daily_news/domain/usecases/save_articles.dart";
+import "package:news_app/features/daily_news/domain/usecases/articles_usecases/get_articles.dart";
+import "package:news_app/features/daily_news/domain/usecases/articles_usecases/save_articles.dart";
 import "package:news_app/features/daily_news/presentation/bloc/remote/article_bloc/bloc/remote_article_bloc.dart";
 
 final serviceLocator = GetIt.instance;

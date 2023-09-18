@@ -5,8 +5,8 @@ import 'package:http/http.dart';
 import 'package:news_app/core/constant/constants.dart';
 import 'package:news_app/core/resources/data_state.dart';
 import 'package:news_app/features/daily_news/domain/entities/article.dart';
-import 'package:news_app/features/daily_news/domain/usecases/get_articles.dart';
-import 'package:news_app/features/daily_news/domain/usecases/save_articles.dart';
+import 'package:news_app/features/daily_news/domain/usecases/articles_usecases/get_articles.dart';
+import 'package:news_app/features/daily_news/domain/usecases/articles_usecases/save_articles.dart';
 part 'remote_article_event.dart';
 part 'remote_article_state.dart';
 
