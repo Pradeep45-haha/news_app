@@ -1,6 +1,6 @@
-import 'package:news_app/features/daily_news/domain/entities/article.dart';
 
-class ArticleModel extends ArticleEntity {
+
+class ArticleModel  {
   final SourceModel? sourceModel;
   final String? author;
   final String? title;
@@ -38,7 +38,7 @@ class ArticleModel extends ArticleEntity {
   }
 }
 
-class SourceModel extends SourcesEntity {
+class SourceModel   {
   final String? id;
   final String? name;
   const SourceModel({
