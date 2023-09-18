@@ -2,10 +2,11 @@ import 'package:sqflite/sqflite.dart';
 
 abstract class ILocalDatabase {
   dynamic createDatabase();
-  Future<void> createSchema(Database database);
+  Future<void> createSchema({required Database db});
   Future<List<Map<String, dynamic>>> getNewsArticles();
   dynamic removeNewsArticles();
-  Future<int> saveNewsArticles({ required String author,
+  Future<int> saveNewsArticles({
+    required String author,
     required String title,
     required String description,
     required String url,
@@ -13,6 +14,7 @@ abstract class ILocalDatabase {
     required String publishedAt,
     required String sourceId,
     required String sourceName,
-    required String content,});
+    required String content,
+  });
   Future<int> updateNewsArticles({required int id});
 }

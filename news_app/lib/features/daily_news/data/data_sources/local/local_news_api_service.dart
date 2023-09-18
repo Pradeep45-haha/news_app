@@ -7,19 +7,21 @@ class LocalGetNewsApiService {
   LocalGetNewsApiService({required this.databaseHelper});
   Future<void> saveNewsArticles(
       {required List<ArticleEntity> articleEntity}) async {
-    
-   
     for (int i = 0; i < articleEntity.length; i++) {
       databaseHelper.saveNewsArticles(
-          author: articleEntity[i].author!,
-          title: articleEntity[i].title!,
-          description: articleEntity[i].description!,
-          url: articleEntity[i].url!,
-          urlToImage: articleEntity[i].urlToImage!,
-          publishedAt: articleEntity[i].publishedAt!,
-          sourceId: articleEntity[i].sourcesEntity!.id!,
-          sourceName: articleEntity[i].sourcesEntity!.name!,
-          content: articleEntity[i].content!);
+          author: articleEntity[i].author ?? "",
+          title: articleEntity[i].title ?? "",
+          description: articleEntity[i].description ?? "",
+          url: articleEntity[i].url ?? "",
+          urlToImage: articleEntity[i].urlToImage ?? "",
+          publishedAt: articleEntity[i].publishedAt ?? "",
+          sourceId: articleEntity[i].sourcesEntity == null
+              ? ""
+              : articleEntity[i].sourcesEntity!.id ?? "",
+          sourceName: articleEntity[i].sourcesEntity == null
+              ? ""
+              : articleEntity[i].sourcesEntity!.name ?? "",
+          content: articleEntity[i].content ?? "");
     }
   }
 

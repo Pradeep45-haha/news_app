@@ -1,5 +1,5 @@
 import 'dart:io';
-import 'package:news_app/core/resources/i_local_database.dart';
+import 'package:news_app/features/daily_news/data/data_sources/local/i_local_database.dart';
 import 'package:path/path.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:sqflite/sqflite.dart';
@@ -10,6 +10,10 @@ class DatabaseHelper implements ILocalDatabase {
   final _dbName = "news.db";
   final _tableName = "NEWS_ARTICLES";
 
+  DatabaseHelper() {
+    createDatabase();
+  }
+
   @override
   Future<Database> createDatabase() async {
     _appDirPath = await getApplicationDocumentsDirectory();
@@ -17,17 +21,15 @@ class DatabaseHelper implements ILocalDatabase {
     _db = await openDatabase(
       path,
       version: 1,
-      onCreate: (db, version) async {
-        return await createSchema(db);
-      },
     );
+    createSchema(db: _db);
     return _db;
   }
 
   @override
-  Future<void> createSchema(Database database) async {
-    return await database.execute("""
-CREATE TABLE $_tableName(
+  Future<void> createSchema({required Database db}) async {
+    return await _db.execute("""
+CREATE TABLE IF NOT EXISTS $_tableName(
   ID INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
   Author  TEXT,
   Title TEXT,
