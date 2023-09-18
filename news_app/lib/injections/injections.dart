@@ -5,20 +5,48 @@ import "package:news_app/features/daily_news/data/data_sources/remote/news_api_s
 import "package:news_app/features/daily_news/data/repository/imp_article_repository.dart";
 import "package:news_app/features/daily_news/domain/repository/i_article_repository.dart";
 import 'package:news_app/features/daily_news/domain/usecases/get_articles.dart';
+import "package:news_app/features/daily_news/domain/usecases/save_articles.dart";
 import "package:news_app/features/daily_news/presentation/bloc/remote/article_bloc/bloc/remote_article_bloc.dart";
 
 final serviceLocator = GetIt.instance;
 
 Future<void> initializeDependencies() async {
-  serviceLocator.registerSingleton<NewsApiService>(NewsApiService());
-  serviceLocator
-      .registerSingleton<LocalGetNewsApiService>(LocalGetNewsApiService(databaseHelper: DatabaseHelper()));
+  serviceLocator.registerSingleton<NewsApiService>(
+    NewsApiService(),
+  );
+
+  serviceLocator.registerSingleton<LocalGetNewsApiService>(
+    LocalGetNewsApiService(
+      databaseHelper: DatabaseHelper(),
+    ),
+  );
 
   serviceLocator.registerSingleton<ArticleRepository>(
-      ArticleRepositoryImp(serviceLocator(), LocalGetNewsApiService(databaseHelper: DatabaseHelper())));
+    ArticleRepositoryImp(
+      serviceLocator(),
+      LocalGetNewsApiService(
+        databaseHelper: DatabaseHelper(),
+      ),
+    ),
+  );
   serviceLocator.registerSingleton<GetArticleUseCase>(
-      GetArticleUseCase(serviceLocator()));
+    GetArticleUseCase(
+      serviceLocator(),
+    ),
+  );
+  serviceLocator.registerSingleton<SaveArticlesUseCase>(
+    SaveArticlesUseCase(
+      articleRepository: ArticleRepositoryImp(
+        serviceLocator(),
+        serviceLocator(),
+      ),
+    ),
+  );
 
   serviceLocator.registerFactory<RemoteArticleBloc>(
-      () => RemoteArticleBloc(serviceLocator()));
+    () => RemoteArticleBloc(
+      serviceLocator(),
+      serviceLocator(),
+    ),
+  );
 }

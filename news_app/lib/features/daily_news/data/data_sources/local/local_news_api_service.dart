@@ -5,19 +5,22 @@ import 'package:news_app/features/daily_news/domain/entities/article.dart';
 class LocalGetNewsApiService {
   final DatabaseHelper databaseHelper;
   LocalGetNewsApiService({required this.databaseHelper});
-  Future<void> saveNewsArticles({required ArticleEntity articleEntity}) async {
-    final db = await databaseHelper.createDatabase();
-    databaseHelper.createSchema(db);
-    databaseHelper.saveNewsArticles(
-        author: articleEntity.author!,
-        title: articleEntity.title!,
-        description: articleEntity.description!,
-        url: articleEntity.url!,
-        urlToImage: articleEntity.urlToImage!,
-        publishedAt: articleEntity.publishedAt!,
-        sourceId: articleEntity.sourcesEntity!.id!,
-        sourceName: articleEntity.sourcesEntity!.name!,
-        content: articleEntity.content!);
+  Future<void> saveNewsArticles(
+      {required List<ArticleEntity> articleEntity}) async {
+    
+   
+    for (int i = 0; i < articleEntity.length; i++) {
+      databaseHelper.saveNewsArticles(
+          author: articleEntity[i].author!,
+          title: articleEntity[i].title!,
+          description: articleEntity[i].description!,
+          url: articleEntity[i].url!,
+          urlToImage: articleEntity[i].urlToImage!,
+          publishedAt: articleEntity[i].publishedAt!,
+          sourceId: articleEntity[i].sourcesEntity!.id!,
+          sourceName: articleEntity[i].sourcesEntity!.name!,
+          content: articleEntity[i].content!);
+    }
   }
 
   Future<DataState> getSavedNewsArticles() async {
@@ -33,7 +36,7 @@ class LocalGetNewsApiService {
 
   Future<int> updateNewsArticles(
       {required ArticleEntity articleEntity, required int id}) async {
-   return await databaseHelper.updateNewsArticles(
+    return await databaseHelper.updateNewsArticles(
       id: id,
       author: articleEntity.author,
       content: articleEntity.content,

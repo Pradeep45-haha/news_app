@@ -3,9 +3,9 @@ import 'package:news_app/features/daily_news/domain/entities/article.dart';
 import 'package:news_app/features/daily_news/domain/repository/i_article_repository.dart';
 import '../../../../core/usecases/usecase.dart';
 
-class GetSacedArticleUseCase implements UseCase<DataState, List<String>> {
+class GetSavedArticleUseCase implements UseCase<DataState, List<String>> {
   final ArticleRepository _articleRepository;
-  GetSacedArticleUseCase(this._articleRepository);
+  GetSavedArticleUseCase(this._articleRepository);
   @override
   Future<DataState> call({
     required List<String> params,

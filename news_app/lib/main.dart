@@ -5,12 +5,21 @@ import 'package:news_app/features/daily_news/presentation/bloc/remote/article_bl
 import 'package:news_app/features/daily_news/presentation/pages/home/news_page.dart';
 import 'package:news_app/injections/injections.dart';
 
+
 void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
   await initializeDependencies();
-  runApp(BlocProvider(
-    create: (context) => RemoteArticleBloc(serviceLocator.get()),
-    child: const MyApp(),
-  ));
+  
+
+  runApp(
+    BlocProvider(
+      create: (context) => RemoteArticleBloc(
+        serviceLocator.get(),
+        serviceLocator.get(),
+      ),
+      child: const MyApp(),
+    ),
+  );
 }
 
 class MyApp extends StatelessWidget {

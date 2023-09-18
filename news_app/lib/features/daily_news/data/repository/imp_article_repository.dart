@@ -41,7 +41,7 @@ class ArticleRepositoryImp implements ArticleRepository {
   }
 
   @override
-  Future<void> saveNewsArticles({required ArticleEntity articleEntity}) {
+  Future<void> saveNewsArticles({required List<ArticleEntity> articleEntity}) {
     return _localGetNewsApiService.saveNewsArticles(
         articleEntity: articleEntity);
   }

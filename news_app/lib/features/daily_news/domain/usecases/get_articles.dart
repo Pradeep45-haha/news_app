@@ -18,7 +18,7 @@ class GetArticleUseCase implements UseCase<DataState, List<String>> {
     if (dataState is DataSuccess) {
       List<ArticleEntity> listOfArticleEntity = [];
       List<dynamic> listOfArticle = dataState.data;
-      //  debugPrint(listOfArticle.toString());
+      
       for (int i = 0; i < listOfArticle.length; i++) {
         listOfArticleEntity.add(
           ArticleEntity.fromArticleModel(listOfArticle[i]),

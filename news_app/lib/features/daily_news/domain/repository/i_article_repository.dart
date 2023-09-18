@@ -8,7 +8,7 @@ abstract class ArticleRepository {
     required String country,
   });
 
-  Future<void> saveNewsArticles({required ArticleEntity articleEntity});
+  Future<void> saveNewsArticles({required List<ArticleEntity> articleEntity});
   Future<DataState> getSavedNewsArticles();
   Future<void> removeArticles();
   Future<int> updateArticle({required ArticleEntity articleEntity, required int id});
