@@ -10,7 +10,7 @@ enum CountryName {
   usa,
 }
 
-enum SortBY {
+enum SortNewsBy {
   relevancy,
   popularity,
   publishedAt,

@@ -11,9 +11,11 @@ class GetArticleUseCase implements UseCase<DataState, List<String>> {
     required List<String> params,
   }) async {
     DataState dataState = await _articleRepository.getNewsArticles(
-      apiKey: params[2],
-      category: params[1],
       country: params[0],
+      category: params[1],
+      apiKey: params[2],
+      sortBy: params[3],
+      getNewsMatchingText: params[4],
     );
     if (dataState is DataSuccess) {
       List<ArticleEntity> listOfArticleEntity = [];

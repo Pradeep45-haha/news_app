@@ -16,6 +16,8 @@ class ArticleRepositoryImp implements ArticleRepository {
     required String apiKey,
     required String category,
     required String country,
+    required String sortBy,
+    String getNewsMatchingText = "",
   }) async {
     DataState dataState = await _newsApiService.getNewsArticles(
       apiKey: apiKey,

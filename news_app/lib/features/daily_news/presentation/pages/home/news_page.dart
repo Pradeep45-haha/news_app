@@ -3,6 +3,7 @@ import 'package:news_app/core/constant/constants.dart';
 import 'package:news_app/features/daily_news/domain/entities/article.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:news_app/features/daily_news/presentation/bloc/remote/article_bloc/bloc/article_bloc.dart';
+import 'package:news_app/features/daily_news/presentation/bloc/remote/filter_bloc/bloc/filter_bloc.dart';
 import 'package:news_app/features/daily_news/presentation/widgets/filters.dart';
 
 class NewsPage extends StatelessWidget {
@@ -14,6 +15,7 @@ class NewsPage extends StatelessWidget {
       ..add(
         const GetArticlesEvent(),
       );
+    FilterBloc filterBloc = BlocProvider.of<FilterBloc>(context);
 
     return Scaffold(
       appBar: AppBar(
@@ -23,14 +25,13 @@ class NewsPage extends StatelessWidget {
               showModalBottomSheet(
                 enableDrag: true,
                 showDragHandle: true,
-                isScrollControlled: true,
                 context: context,
                 builder: (context) {
                   return const Filters();
                 },
               ).then(
                 (value) {
-                  articleBloc.add(
+                  filterBloc.add(
                     UserFilterFinalizedEvent(),
                   );
                 },

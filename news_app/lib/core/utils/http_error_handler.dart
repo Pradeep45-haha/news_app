@@ -2,8 +2,6 @@ import 'package:http/http.dart';
 import 'package:news_app/core/resources/data_state.dart';
 import 'package:news_app/core/resources/http_exception.dart';
 
-
-
 DataState handleHttpError(Response response) {
   late DataException dataException;
   switch (response.statusCode) {

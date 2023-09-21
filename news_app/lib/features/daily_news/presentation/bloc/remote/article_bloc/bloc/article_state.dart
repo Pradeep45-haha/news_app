@@ -41,21 +41,3 @@ final class ArticleErrorState extends ArticleState {
           forEquatable: [exception],
         );
 }
-
-final class UserWantsToAddFiltersState extends ArticleState {}
-
-final class UserUpdatedArticlesPerPageState extends ArticleState {
-  const UserUpdatedArticlesPerPageState();
-}
-
-final class UserUpdatedCategoryState extends ArticleState {
-  const UserUpdatedCategoryState();
-}
-
-final class UserUpdatedCountryState extends ArticleState {
-  const UserUpdatedCountryState();
-}
-
-final class UserUpdatedSortByState extends ArticleState {
-  const UserUpdatedSortByState();
-}

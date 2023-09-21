@@ -18,23 +18,6 @@ class ArticleBloc extends Bloc<ArticleEvent, ArticleState> {
   final GetSavedArticleUseCase _getSavedArticleUseCase;
   final NoNetworkUsecase _noNetworkUsecase;
 
-  //variables for ui
-  Map<SortBY, bool> sortByValues = {
-    SortBY.popularity: false,
-    SortBY.publishedAt: false,
-    SortBY.relevancy: true,
-  };
-  Map<Category, bool> categoryFilterValues = {
-    Category.business: true,
-    Category.entertainment: true,
-    Category.general: true,
-    Category.health: true,
-    Category.science: true,
-    Category.sports: true,
-    Category.technology: true,
-  };
-  int articlesPerPage = 20;
-
   ArticleBloc(
     this._getArticleUseCase,
     this._saveArticlesUseCase,
@@ -51,7 +34,9 @@ class ArticleBloc extends Bloc<ArticleEvent, ArticleState> {
             dataState = await _getArticleUseCase.call(params: [
               getCountryCode(countryName: null),
               getCategory(null),
-              apiKey
+              apiKey,
+              SortNewsBy.relevancy.name,
+              "",
             ]);
           }
 
@@ -74,16 +59,6 @@ class ArticleBloc extends Bloc<ArticleEvent, ArticleState> {
             );
             return;
           }
-        }
-        if (event is UserUpdatedArticlesPerPageEvent) {
-          articlesPerPage = event.maxArticlesPerPage;
-          emit(
-            const UserUpdatedArticlesPerPageState(),
-          );
-        }
-        if(event is UserFilterFinalizedEvent)
-        {
-          
         }
       },
     );
