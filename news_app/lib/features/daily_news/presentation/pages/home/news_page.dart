@@ -1,21 +1,70 @@
 import 'package:flutter/material.dart';
+import 'package:news_app/core/constant/constants.dart';
 import 'package:news_app/features/daily_news/domain/entities/article.dart';
-import 'package:news_app/features/daily_news/presentation/bloc/remote/article_bloc/bloc/remote_article_bloc.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:news_app/features/daily_news/presentation/bloc/remote/article_bloc/bloc/article_bloc.dart';
+import 'package:news_app/features/daily_news/presentation/widgets/filters.dart';
 
 class NewsPage extends StatelessWidget {
   const NewsPage({super.key});
 
   @override
   Widget build(BuildContext context) {
-    RemoteArticleBloc remoteArticleBloc =
-        BlocProvider.of<RemoteArticleBloc>(context)
-          ..add(
-            const GetArticlesEvent(),
-          );
+    ArticleBloc articleBloc = BlocProvider.of<ArticleBloc>(context)
+      ..add(
+        const GetArticlesEvent(),
+      );
 
     return Scaffold(
       appBar: AppBar(
+        actions: [
+          IconButton(
+            onPressed: () async {
+              showModalBottomSheet(
+                enableDrag: true,
+                showDragHandle: true,
+                isScrollControlled: true,
+                context: context,
+                builder: (context) {
+                  return const Filters();
+                },
+              ).then(
+                (value) {
+                  articleBloc.add(
+                    UserFilterFinalizedEvent(),
+                  );
+                },
+              );
+            },
+            icon: const Icon(Icons.filter_alt_outlined),
+          ),
+          IconButton(
+            onPressed: () {
+              showMenu(
+                context: context,
+                position: RelativeRect.fromDirectional(
+                    textDirection: TextDirection.ltr,
+                    start: 1,
+                    top: 1,
+                    end: 20,
+                    bottom: 20),
+                items: <PopupMenuEntry>[
+                  PopupMenuItem(
+                    value: CountryName.india,
+                    onTap: () {},
+                    child: const Text("India"),
+                  ),
+                  PopupMenuItem(
+                    value: CountryName.usa,
+                    onTap: () {},
+                    child: const Text("Usa"),
+                  ),
+                ],
+              );
+            },
+            icon: const Icon(Icons.travel_explore),
+          ),
+        ],
         title: const Text(
           "Today News",
           style: TextStyle(
@@ -23,14 +72,22 @@ class NewsPage extends StatelessWidget {
           ),
         ),
       ),
-      body: BlocBuilder<RemoteArticleBloc, RemoteArticleState>(
+      body: BlocBuilder<ArticleBloc, ArticleState>(
         builder: (context, state) {
-          if (state is RemoteArticleLoadingState) {
+          if (state is UserWantsToAddFiltersState) {
+            showModalBottomSheet(
+              context: context,
+              builder: (context) {
+                return const Placeholder();
+              },
+            );
+          }
+          if (state is ArticleLoadingState) {
             return const Center(
               child: CircularProgressIndicator(),
             );
           }
-          if (state is RemoteArticleDoneState) {
+          if (state is ArticleDoneState) {
             return Center(
               child: ConstrainedBox(
                 constraints: const BoxConstraints(
@@ -47,13 +104,13 @@ class NewsPage extends StatelessWidget {
               ),
             );
           }
-          if (state is RemoteArticleErrorState) {
+          if (state is ArticleErrorState) {
             // debugPrint(state.exception.type.name);
             return Center(
               child: IconButton(
                 icon: const Icon(Icons.refresh),
                 onPressed: () {
-                  remoteArticleBloc.add(
+                  articleBloc.add(
                     const GetArticlesEvent(),
                   );
                 },
@@ -62,7 +119,7 @@ class NewsPage extends StatelessWidget {
           }
           return const Center(
             child: Text(
-              "It look like somthing unexpeted happened",
+              "It look like something unexpected happened",
             ),
           );
         },

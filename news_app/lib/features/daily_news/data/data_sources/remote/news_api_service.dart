@@ -5,7 +5,7 @@ import 'package:news_app/core/utils/url_builder.dart';
 import 'package:http/http.dart';
 
 
-class NewsApiService {
+class RemoteNewsApiService {
   Future<DataState> getNewsArticles(
       {required String apiKey,
       required String country,

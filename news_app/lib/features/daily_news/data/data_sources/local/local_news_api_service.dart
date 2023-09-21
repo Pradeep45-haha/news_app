@@ -2,9 +2,9 @@ import 'package:news_app/core/resources/data_state.dart';
 import 'package:news_app/core/utils/database_helper.dart';
 import 'package:news_app/features/daily_news/domain/entities/article.dart';
 
-class LocalGetNewsApiService {
+class LocalNewsApiService {
   final DatabaseHelper databaseHelper;
-  LocalGetNewsApiService({required this.databaseHelper});
+  LocalNewsApiService({required this.databaseHelper});
   Future<void> saveNewsArticles(
       {required List<ArticleEntity> articleEntity}) async {
     for (int i = 0; i < articleEntity.length; i++) {

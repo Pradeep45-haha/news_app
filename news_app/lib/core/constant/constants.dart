@@ -5,9 +5,15 @@ get apiKey {
   return _apiKey;
 }
 
-enum CounrtyName {
+enum CountryName {
   india,
   usa,
+}
+
+enum SortBY {
+  relevancy,
+  popularity,
+  publishedAt,
 }
 
 enum Category {
@@ -22,6 +28,7 @@ enum Category {
 
 String getCategory(Category? category) {
   String tempCategory = "";
+
   switch (category) {
     case Category.business:
       tempCategory = "business";
@@ -53,11 +60,11 @@ String getCategory(Category? category) {
 
 Map<String, String> countryNameAndCode = {"India": "in", "USA": "us"};
 
-String getCountryCode({required CounrtyName? counrtyName}) {
-  if (counrtyName == CounrtyName.india) {
+String getCountryCode({required CountryName? countryName}) {
+  if (countryName == CountryName.india) {
     return countryNameAndCode["India"]!;
   }
-  if (counrtyName == CounrtyName.usa) {
+  if (countryName == CountryName.usa) {
     return countryNameAndCode["USA"]!;
   }
   return countryNameAndCode["India"]!;

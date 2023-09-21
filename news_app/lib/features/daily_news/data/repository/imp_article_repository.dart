@@ -7,8 +7,8 @@ import 'package:news_app/features/daily_news/domain/entities/article.dart';
 import '../../domain/repository/i_article_repository.dart';
 
 class ArticleRepositoryImp implements ArticleRepository {
-  final NewsApiService _newsApiService;
-  final LocalGetNewsApiService _localGetNewsApiService;
+  final RemoteNewsApiService _newsApiService;
+  final LocalNewsApiService _localGetNewsApiService;
   ArticleRepositoryImp(this._newsApiService, this._localGetNewsApiService);
 
   @override

@@ -1,7 +1,5 @@
 import 'package:news_app/core/constant/constants.dart';
 
-
-
 String urlBuilder(
     {required String country,
     required String category,
