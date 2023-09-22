@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:news_app/core/constant/constants.dart';
 import 'package:news_app/features/daily_news/domain/entities/article.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:news_app/features/daily_news/presentation/bloc/remote/article_bloc/bloc/article_bloc.dart';
@@ -17,115 +16,119 @@ class NewsPage extends StatelessWidget {
       );
     FilterBloc filterBloc = BlocProvider.of<FilterBloc>(context);
 
-    return Scaffold(
-      appBar: AppBar(
-        actions: [
-          IconButton(
-            onPressed: () async {
-              showModalBottomSheet(
-                enableDrag: true,
-                showDragHandle: true,
-                context: context,
-                builder: (context) {
-                  return const Filters();
-                },
-              ).then(
-                (value) {
-                  filterBloc.add(
-                    UserFilterFinalizedEvent(),
+    return BlocBuilder<FilterBloc, FilterState>(builder: (context, state) {
+      if (state is ShowCountrySelectionMenuState) {
+        return const CountryMenuList();
+      }
+
+      return Scaffold(
+        appBar: AppBar(
+          actions: [
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 8.0),
+              child: IconButton(
+                color: Colors.white,
+                style: const ButtonStyle(
+                    backgroundColor:
+                        MaterialStatePropertyAll<Color>(Colors.white),
+                    iconColor: MaterialStatePropertyAll<Color>(Colors.white)),
+                onPressed: () async {
+                  
+                  showModalBottomSheet(
+
+                    enableDrag: true,
+                    showDragHandle: true,
+                    context: context,
+                    builder: (context) {
+                      return const Filters();
+                    },
+                  ).then(
+                    (value) {
+                      filterBloc.add(
+                        UserFilterFinalizedEvent(),
+                      );
+                    },
                   );
                 },
-              );
-            },
-            icon: const Icon(Icons.filter_alt_outlined),
-          ),
-          IconButton(
-            onPressed: () {
-              showMenu(
-                context: context,
-                position: RelativeRect.fromDirectional(
-                    textDirection: TextDirection.ltr,
-                    start: 1,
-                    top: 1,
-                    end: 20,
-                    bottom: 20),
-                items: <PopupMenuEntry>[
-                  PopupMenuItem(
-                    value: CountryName.india,
-                    onTap: () {},
-                    child: const Text("India"),
-                  ),
-                  PopupMenuItem(
-                    value: CountryName.usa,
-                    onTap: () {},
-                    child: const Text("Usa"),
-                  ),
-                ],
-              );
-            },
-            icon: const Icon(Icons.travel_explore),
-          ),
-        ],
-        title: const Text(
-          "Today News",
-          style: TextStyle(
-            color: Colors.black,
+                icon: const Icon(Icons.filter_alt_outlined),
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 8.0),
+              child: IconButton(
+                color: Colors.white,
+                style: const ButtonStyle(
+                    backgroundColor:
+                        MaterialStatePropertyAll<Color>(Colors.white),
+                    iconColor: MaterialStatePropertyAll<Color>(Colors.white)),
+                onPressed: () {
+                  filterBloc.add(ShowCountrySelectionMenuEvent());
+                },
+                icon: const Icon(Icons.travel_explore),
+              ),
+            ),
+          ],
+          title: const Text(
+            "Today News",
+            style: TextStyle(
+              color: Colors.black,
+            ),
           ),
         ),
-      ),
-      body: BlocBuilder<ArticleBloc, ArticleState>(
-        builder: (context, state) {
-          if (state is UserWantsToAddFiltersState) {
-            showModalBottomSheet(
-              context: context,
-              builder: (context) {
-                return const Placeholder();
-              },
-            );
-          }
-          if (state is ArticleLoadingState) {
-            return const Center(
-              child: CircularProgressIndicator(),
-            );
-          }
-          if (state is ArticleDoneState) {
-            return Center(
-              child: ConstrainedBox(
-                constraints: const BoxConstraints(
-                  maxWidth: 600,
-                ),
-                child: ListView.builder(
-                    scrollDirection: Axis.vertical,
-                    itemCount: state.articlesEntity.length,
-                    padding: const EdgeInsets.symmetric(
-                        horizontal: 16, vertical: 12),
-                    itemBuilder: (context, index) {
-                      return newsTileBuilder(state.articlesEntity[index]);
-                    }),
-              ),
-            );
-          }
-          if (state is ArticleErrorState) {
-            // debugPrint(state.exception.type.name);
-            return Center(
-              child: IconButton(
-                icon: const Icon(Icons.refresh),
-                onPressed: () {
-                  articleBloc.add(
-                    const GetArticlesEvent(),
-                  );
+        body: BlocBuilder<ArticleBloc, ArticleState>(
+          builder: (context, state) {
+            if (state is UserWantsToAddFiltersState) {
+              showModalBottomSheet(
+                context: context,
+                builder: (context) {
+                  return const Placeholder();
                 },
+              );
+            }
+            if (state is ArticleLoadingState) {
+              return const Center(
+                child: CircularProgressIndicator(),
+              );
+            }
+            if (state is ArticleDoneState) {
+              return Center(
+                child: ConstrainedBox(
+                  constraints: const BoxConstraints(
+                    maxWidth: 600,
+                  ),
+                  child: ListView.builder(
+                      scrollDirection: Axis.vertical,
+                      itemCount: state.articlesEntity.length,
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 16, vertical: 12),
+                      itemBuilder: (context, index) {
+                        return newsTileBuilder(state.articlesEntity[index]);
+                      }),
+                ),
+              );
+            }
+            if (state is ArticleErrorState) {
+              // debugPrint(state.exception.type.name);
+              return Center(
+                child: IconButton(
+                  icon: const Icon(Icons.refresh),
+                  onPressed: () {
+                    articleBloc.add(
+                      const GetArticlesEvent(),
+                    );
+                  },
+                ),
+              );
+            }
+            return const Center(
+              child: Text(
+                "It look like something unexpected happened",
               ),
             );
-          }
-          return const Center(
-            child: Text(
-              "It look like something unexpected happened",
-            ),
-          );
-        },
-      ),
-    );
+          },
+        ),
+      );
+    });
   }
 }
 

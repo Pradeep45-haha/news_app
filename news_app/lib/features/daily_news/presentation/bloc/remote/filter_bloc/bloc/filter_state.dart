@@ -12,11 +12,18 @@ final class FilterInitial extends FilterState {}
 final class UserWantsToAddFiltersState extends FilterState {}
 
 final class UserUpdatedArticlesPerPageState extends FilterState {
-  const UserUpdatedArticlesPerPageState();
+  final int updated;
+  const UserUpdatedArticlesPerPageState({required this.updated});
+  @override
+  List<Object> get props => [updated];
 }
 
 final class UserUpdatedCategoryState extends FilterState {
-  const UserUpdatedCategoryState();
+  final int updated;
+
+  @override
+  List<Object> get props => [updated];
+  const UserUpdatedCategoryState({required this.updated});
 }
 
 final class UserUpdatedCountryState extends FilterState {
@@ -24,5 +31,29 @@ final class UserUpdatedCountryState extends FilterState {
 }
 
 final class UserUpdatedSortByState extends FilterState {
-  const UserUpdatedSortByState();
+  final int updated;
+  const UserUpdatedSortByState({required this.updated});
+  @override
+  List<Object> get props => [updated];
+}
+
+final class UserClearedAllFiltersState extends FilterState {
+  final int updated;
+  @override
+  List<Object> get props => [updated];
+  const UserClearedAllFiltersState({required this.updated});
+}
+
+final class ShowCountrySelectionMenuState extends FilterState {
+  final int updated;
+  @override
+  List<Object> get props => [updated];
+  const ShowCountrySelectionMenuState({required this.updated});
+}
+
+final class CloseCountrySelectionMenuState extends FilterState {
+  final int updated;
+  @override
+  List<Object> get props => [updated];
+  const CloseCountrySelectionMenuState({required this.updated});
 }

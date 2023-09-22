@@ -7,5 +7,20 @@ String urlBuilder({
   String? sortBy,
   String? getNewsByMatchingText,
 }) {
-  return "$baseUrl/top-headlines?country=$country&category=$category&sortby=$sortBy&apiKey=$apiKey";
+  List<String> parameterList = [
+    "category=$category&",
+    "q=$getNewsByMatchingText&"
+  ];
+  String url = "$baseUrl/top-headlines?country=$country&";
+
+  if (getNewsByMatchingText != null) {
+    url = "$url${parameterList[1]}";
+  }
+  if (category != null) {
+    url = "$url${parameterList[0]}apiKey=$apiKey";
+  } else {
+    url = "$url{apiKey=$apiKey}";
+  }
+
+  return url;
 }
