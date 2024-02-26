@@ -12,6 +12,7 @@ import "package:news_app/features/daily_news/domain/usecases/articles_usecases/g
 import "package:news_app/features/daily_news/domain/usecases/articles_usecases/save_articles.dart";
 import "package:news_app/features/daily_news/domain/usecases/connectivity_usecases/no_net.dart";
 import "package:news_app/features/daily_news/presentation/bloc/remote/article_bloc/bloc/article_bloc.dart";
+import "package:news_app/features/daily_news/presentation/bloc/remote/filter_bloc/bloc/filter_bloc.dart";
 
 final serviceLocator = GetIt.instance;
 
@@ -20,6 +21,7 @@ Future<void> initializeDependencies() async {
     RemoteNewsApiService(),
   );
   serviceLocator.registerSingleton(Connectivity());
+  serviceLocator.registerSingleton(FilterBloc());
 
   serviceLocator.registerSingleton<ConnectivityRepository>(
     ConnectivityRepositoryImp(
@@ -66,6 +68,7 @@ Future<void> initializeDependencies() async {
 
   serviceLocator.registerFactory<ArticleBloc>(
     () => ArticleBloc(
+      serviceLocator(),
       serviceLocator(),
       serviceLocator(),
       serviceLocator(),

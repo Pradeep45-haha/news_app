@@ -20,10 +20,11 @@ void main() async {
             serviceLocator.get(),
             serviceLocator.get(),
             serviceLocator.get(),
+            serviceLocator.get(),
           ),
         ),
         BlocProvider(
-          create: (context) => FilterBloc(),
+          create: (context) => serviceLocator.get<FilterBloc>(),
         ),
       ],
       child: const MyApp(),

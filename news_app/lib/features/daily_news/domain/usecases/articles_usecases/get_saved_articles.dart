@@ -7,7 +7,7 @@ class GetSavedArticleUseCase implements UseCase<DataState, void> {
   final ArticleRepository _articleRepository;
   GetSavedArticleUseCase(this._articleRepository);
   @override
-  Future<DataState> call({required void params}) async {
+  Future<DataState> call({ void params}) async {
     DataState dataState = await _articleRepository.getSavedNewsArticles();
     if (dataState is DataSuccess) {
       List<ArticleEntity> listOfArticleEntity = [];

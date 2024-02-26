@@ -11,10 +11,11 @@ part 'filter_state.dart';
 
 class Value {
   int _value = 0;
-  get currentValue => _value;
-  change() {
+
+  int currentValue() {
     checkMax();
     _value++;
+    return _value;
   }
 
   checkMax() {
@@ -49,9 +50,8 @@ class FilterBloc extends Bloc<FilterEvent, FilterState> {
       if (event is UserUpdatedArticlesPerPageEvent) {
         articlesPerPage = event.maxArticlesPerPage;
         emit(
-          UserUpdatedArticlesPerPageState(updated: value.currentValue),
+          UserUpdatedArticlesPerPageState(updated: value.currentValue()),
         );
-        value.change();
       }
       if (event is UserUpdatedCategoryEvent) {
         categoryFilterValues = categoryFilterValues.map((key, value) {
@@ -59,8 +59,7 @@ class FilterBloc extends Bloc<FilterEvent, FilterState> {
         });
         categoryFilterValues[event.category] =
             !categoryFilterValues[event.category]!;
-        emit(UserUpdatedCategoryState(updated: value.currentValue));
-        value.change();
+        emit(UserUpdatedCategoryState(updated: value.currentValue()));
       }
       if (event is UserUpdatedCountryEvent) {
         emit(const UserUpdatedCountryState());
@@ -73,12 +72,12 @@ class FilterBloc extends Bloc<FilterEvent, FilterState> {
         sortByValues[event.sortBy] = true;
         debugPrint(sortByValues.toString());
 
-        emit(UserUpdatedSortByState(updated: value.currentValue));
-        value.change();
+        emit(UserUpdatedSortByState(updated: value.currentValue()));
       }
 
       if (event is UserFilterFinalizedEvent) {
         debugPrint("got UserFilterFinalizedEvent ");
+        emit(UserFilterFinalizedState(updated: value.currentValue()));
       }
       if (event is UserClearedAllFiltersEvent) {
         categoryFilterValues = categoryFilterValues.map((key, value) {
@@ -89,16 +88,13 @@ class FilterBloc extends Bloc<FilterEvent, FilterState> {
         });
         sortByValues[SortNewsBy.relevancy] = true;
         articlesPerPage = 20;
-        emit(UserClearedAllFiltersState(updated: value.currentValue));
-        value.change();
+        emit(UserClearedAllFiltersState(updated: value.currentValue()));
       }
       if (event is ShowCountrySelectionMenuEvent) {
-        emit(ShowCountrySelectionMenuState(updated: value.currentValue));
-        value.change();
+        emit(ShowCountrySelectionMenuState(updated: value.currentValue()));
       }
       if (event is CloseCountrySelectionMenuEvent) {
-        emit(CloseCountrySelectionMenuState(updated: value.currentValue));
-        value.change();
+        emit(CloseCountrySelectionMenuState(updated: value.currentValue()));
       }
     });
   }

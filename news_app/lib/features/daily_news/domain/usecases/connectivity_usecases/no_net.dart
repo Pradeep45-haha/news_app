@@ -8,7 +8,7 @@ class NoNetworkUsecase implements UseCase {
   }
 
   @override
-  Future call({required params}) async {
+  Future call({void params}) async {
     return await _connectivityRepository.isNotConnectedToAnyNetwork();
   }
 }

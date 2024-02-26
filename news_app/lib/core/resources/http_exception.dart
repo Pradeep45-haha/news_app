@@ -1,4 +1,3 @@
-
 import 'package:http/http.dart';
 
 class BadHttpRequest implements ClientException {
@@ -15,10 +14,10 @@ class BadHttpRequest implements ClientException {
   Uri? get uri => Uri.parse(_uri);
 }
 
-class UnauthorisedHttpRequest implements ClientException {
+class UnauthorizedHttpRequest implements ClientException {
   final String _uri;
 
-  UnauthorisedHttpRequest(
+  UnauthorizedHttpRequest(
     this._uri,
   );
 

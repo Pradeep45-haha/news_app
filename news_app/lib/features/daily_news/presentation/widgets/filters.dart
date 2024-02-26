@@ -316,8 +316,7 @@ class MaxArticlePerPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Wrap(
-      alignment: WrapAlignment.center,
+    return Row(
       children: [
         Text(
           "Articles/Page ",
@@ -334,15 +333,15 @@ class ArticlesCountSlider extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     FilterBloc filterBloc = BlocProvider.of<FilterBloc>(context);
-    return Expanded(
-      child: BlocBuilder<FilterBloc, FilterState>(
-        builder: (context, state) {
-          return SliderTheme(
-            data: const SliderThemeData(
-                valueIndicatorShape: PaddleSliderValueIndicatorShape(),
-                valueIndicatorColor: Colors.blue,
-                valueIndicatorTextStyle: TextStyle(
-                    color: Colors.white, fontWeight: FontWeight.w400)),
+    return BlocBuilder<FilterBloc, FilterState>(
+      builder: (context, state) {
+        return SliderTheme(
+          data: const SliderThemeData(
+              valueIndicatorShape: PaddleSliderValueIndicatorShape(),
+              valueIndicatorColor: Colors.blue,
+              valueIndicatorTextStyle:
+                  TextStyle(color: Colors.white, fontWeight: FontWeight.w400)),
+          child: Expanded(
             child: Slider(
               allowedInteraction: SliderInteraction.tapAndSlide,
               label: filterBloc.articlesPerPage.toString(),
@@ -358,9 +357,9 @@ class ArticlesCountSlider extends StatelessWidget {
               divisions: 9,
               min: 10,
             ),
-          );
-        },
-      ),
+          ),
+        );
+      },
     );
   }
 }

@@ -26,37 +26,37 @@ enum Category {
   technology,
 }
 
-String getCategory(Category? category) {
-  String tempCategory = "";
+// String getCategory(Category? category) {
+//   String tempCategory = "";
 
-  switch (category) {
-    case Category.business:
-      tempCategory = "business";
-      break;
-    case Category.entertainment:
-      tempCategory = "entertainment";
-      break;
-    case Category.general:
-      tempCategory = "general";
-      break;
-    case Category.health:
-      tempCategory = "health";
-      break;
-    case Category.science:
-      tempCategory = "science";
-      break;
-    case Category.sports:
-      tempCategory = "sports";
-      break;
-    case Category.technology:
-      tempCategory = "technology";
-      break;
-    default:
-      tempCategory = "general";
-      break;
-  }
-  return tempCategory;
-}
+//   switch (category) {
+//     case Category.business:
+//       tempCategory = "business";
+//       break;
+//     case Category.entertainment:
+//       tempCategory = "entertainment";
+//       break;
+//     case Category.general:
+//       tempCategory = "general";
+//       break;
+//     case Category.health:
+//       tempCategory = "health";
+//       break;
+//     case Category.science:
+//       tempCategory = "science";
+//       break;
+//     case Category.sports:
+//       tempCategory = "sports";
+//       break;
+//     case Category.technology:
+//       tempCategory = "technology";
+//       break;
+//     default:
+//       tempCategory = "general";
+//       break;
+//   }
+//   return tempCategory;
+// }
 
 Map<String, String> countryNameAndCode = {"India": "in", "USA": "us"};
 

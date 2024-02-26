@@ -6,12 +6,15 @@ String urlBuilder({
   required String apiKey,
   String? sortBy,
   String? getNewsByMatchingText,
+  int articlesPerPage = 20,
+  int page = 1,
 }) {
   List<String> parameterList = [
     "category=$category&",
-    "q=$getNewsByMatchingText&"
+    "q=$getNewsByMatchingText&",
   ];
-  String url = "$baseUrl/top-headlines?country=$country&";
+  String url =
+      "$baseUrl/top-headlines?country=$country&pageSize=$articlesPerPage&page=$page";
 
   if (getNewsByMatchingText != null) {
     url = "$url${parameterList[1]}";

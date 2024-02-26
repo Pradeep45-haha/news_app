@@ -23,8 +23,7 @@ class ConnectivityRepositoryImp implements ConnectivityRepository {
 
   @override
   Stream<String> listenToNetworkChanges() async* {
-    _connectivity.onConnectivityChanged.map((event) {
-      return event.name.toString();
-    });
+    yield* _connectivity.onConnectivityChanged
+        .map((event) => event.name.toString());
   }
 }

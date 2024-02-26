@@ -14,7 +14,7 @@ DataState handleHttpError(Response response) {
       break;
     case 401:
       dataException = DataException(
-          clientException: UnauthorisedHttpRequest(
+          clientException: UnauthorizedHttpRequest(
         response.request!.url.toString(),
       ));
       break;
