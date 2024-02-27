@@ -17,19 +17,3 @@ class DataException<T> extends DataState<T> {
   DataException({required this.clientException});
 }
 
-// abstract class DataSuccesOrFaliure<T> {
-//   final T newData;
-//   void operateOnData() {}
-//   const DataSuccesOrFaliure({required this.newData});
-// }
-
-// class DataS<T> implements DataSuccesOrFaliure<T> {
-//   final T dataSuccess = {} as T;
-//   @override
-//   T get newData => dataSuccess;
-
-//   @override
-//   void operateOnData() {
-//     debugPrint(dataSuccess.toString());
-//   }
-// }
