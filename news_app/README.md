@@ -1,6 +1,9 @@
 # news_app
 
-A new Flutter project.
+This app uses https://newsapi.org/ api.
+
+## To run this app
+Use command <flutter run -d chrome --web-browser-flag "--disable-web-security">
 
 ## Getting Started
 
