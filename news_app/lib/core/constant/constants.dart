@@ -1,6 +1,6 @@
 const String baseUrl = "https://newsapi.org/v2";
 
-const String _apiKey = "82e976ed8a1d4945b21c818d7abbb7da";
+
 String get getApiKey {
   return _apiKey;
 }
