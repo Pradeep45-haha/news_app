@@ -1,6 +1,19 @@
+class ArticleCountAndArticleModel {
+  List<ArticleModel> article;
+  int totalResults;
+  ArticleCountAndArticleModel(
+      {required this.article, required this.totalResults});
 
+  factory ArticleCountAndArticleModel.fromJson(Map<String, dynamic> map) {
+    return ArticleCountAndArticleModel(
+        article: (map["articles"] as List<dynamic>).map((e) {
+          return ArticleModel.fromJson(e);
+        }).toList(),
+        totalResults: map["totalResults"]);
+  }
+}
 
-class ArticleModel  {
+class ArticleModel {
   final SourceModel? sourceModel;
   final String? author;
   final String? title;
@@ -22,7 +35,6 @@ class ArticleModel  {
   });
 
   factory ArticleModel.fromJson(Map<String, dynamic> map) {
-    
     return ArticleModel(
       author: map["author"].toString(),
       content: map["content"].toString(),
@@ -38,7 +50,7 @@ class ArticleModel  {
   }
 }
 
-class SourceModel   {
+class SourceModel {
   final String? id;
   final String? name;
   const SourceModel({

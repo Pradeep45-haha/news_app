@@ -25,11 +25,11 @@ final class ArticleLoadingState extends ArticleState {
 }
 
 final class ArticleDoneState extends ArticleState {
-  final List<ArticleEntity> articlesEntity;
-  const ArticleDoneState({
-    required this.articlesEntity,
+  final ArticleCountAndArticleEntity articleCountAndArticleEntity;
+  ArticleDoneState({
+    required this.articleCountAndArticleEntity,
   }) : super(
-          forEquatable: articlesEntity,
+          forEquatable: [articleCountAndArticleEntity],
         );
 }
 

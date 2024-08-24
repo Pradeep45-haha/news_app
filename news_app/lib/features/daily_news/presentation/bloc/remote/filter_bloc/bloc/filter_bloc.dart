@@ -4,8 +4,8 @@ import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 // ignore: unnecessary_import, depend_on_referenced_packages
 import 'package:meta/meta.dart';
+import 'package:news_app/config/data_helper.dart';
 import 'package:news_app/core/constant/constants.dart';
-
 part 'filter_event.dart';
 part 'filter_state.dart';
 
@@ -28,14 +28,14 @@ class Value {
 class FilterBloc extends Bloc<FilterEvent, FilterState> {
   Value value = Value();
 
-  //variables for ui
+  //data for filter
   Map<SortNewsBy, bool> sortByValues = {
     SortNewsBy.popularity: false,
     SortNewsBy.publishedAt: false,
     SortNewsBy.relevancy: true,
   };
   Map<Category, bool> categoryFilterValues = {
-    Category.business: false,
+    Category.business: true,
     Category.entertainment: false,
     Category.general: false,
     Category.health: false,
@@ -43,7 +43,11 @@ class FilterBloc extends Bloc<FilterEvent, FilterState> {
     Category.sports: false,
     Category.technology: false,
   };
+
   int articlesPerPage = 20;
+  int pageNum = 1;
+  //country codeName
+  String seledtedCountryCodeName = "in";
 
   FilterBloc() : super(FilterInitial()) {
     on<FilterEvent>((event, emit) {
@@ -54,6 +58,7 @@ class FilterBloc extends Bloc<FilterEvent, FilterState> {
         );
       }
       if (event is UserUpdatedCategoryEvent) {
+        pageNum = 1;
         categoryFilterValues = categoryFilterValues.map((key, value) {
           return MapEntry(key, false);
         });
@@ -62,6 +67,7 @@ class FilterBloc extends Bloc<FilterEvent, FilterState> {
         emit(UserUpdatedCategoryState(updated: value.currentValue()));
       }
       if (event is UserUpdatedCountryEvent) {
+        seledtedCountryCodeName = countryNameCodeMap[event.country]!;
         emit(const UserUpdatedCountryState());
       }
       if (event is UserUpdatedSortByEvent) {
@@ -74,9 +80,14 @@ class FilterBloc extends Bloc<FilterEvent, FilterState> {
 
         emit(UserUpdatedSortByState(updated: value.currentValue()));
       }
+      if (event is UserChangedPageNumEvent) {
+        pageNum = event.pageNum;
+        emit(UserUpdatedPageNumState(updated: value.currentValue()));
+      }
 
       if (event is UserFilterFinalizedEvent) {
         debugPrint("got UserFilterFinalizedEvent ");
+
         emit(UserFilterFinalizedState(updated: value.currentValue()));
       }
       if (event is UserClearedAllFiltersEvent) {

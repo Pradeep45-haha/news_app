@@ -365,7 +365,8 @@ class ArticlesCountSlider extends StatelessWidget {
 }
 
 class CountryMenuList extends StatelessWidget {
-  const CountryMenuList({super.key});
+  final Map<String, String> countryNameAndCode;
+  const CountryMenuList({super.key, required this.countryNameAndCode});
 
   @override
   Widget build(BuildContext context) {
@@ -376,23 +377,49 @@ class CountryMenuList extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Container(
+              padding: const EdgeInsets.all(4),
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(8),
-                color: const Color.fromARGB(255, 206, 228, 248),
+                color: Colors.white,
                 border: Border.all(
                   color: const Color.fromARGB(255, 30, 148, 245),
                   width: 2,
                 ),
               ),
               height: MediaQuery.of(context).size.height * .60,
-              width: MediaQuery.of(context).size.width * .33,
+              width: MediaQuery.of(context).size.width * .5,
               child: ListView.builder(
                 scrollDirection: Axis.vertical,
-                itemCount: 20,
+                itemCount: countryNameAndCode.length,
                 itemBuilder: (context, index) {
-                  return Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Text(index.toString(), textAlign: TextAlign.center),
+                  return InkWell(
+                    onTap: () {
+                      debugPrint(
+                          "country ${countryNameAndCode.entries.toList()[index].key} selected");
+                      filterBloc.add(UserUpdatedCountryEvent(
+                          country:
+                              countryNameAndCode.entries.toList()[index].key));
+                      filterBloc.add(UserFilterFinalizedEvent());
+                      filterBloc.add(const CloseCountrySelectionMenuEvent());
+                    },
+                    child: Padding(
+                      padding: const EdgeInsets.all(4.0),
+                      child: Container(
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(8),
+                          border: Border.all(
+                            color: const Color.fromARGB(255, 30, 148, 245),
+                            width: 1,
+                          ),
+                        ),
+                        padding: const EdgeInsets.all(8.0),
+                        child: Text(
+                          countryNameAndCode.entries.toList()[index].key,
+                          textAlign: TextAlign.center,
+                          style: const TextStyle(color: Colors.blue),
+                        ),
+                      ),
+                    ),
                   );
                 },
               ),

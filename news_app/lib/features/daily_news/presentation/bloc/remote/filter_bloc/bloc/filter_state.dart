@@ -58,10 +58,17 @@ final class CloseCountrySelectionMenuState extends FilterState {
   const CloseCountrySelectionMenuState({required this.updated});
 }
 
-final class UserFilterFinalizedState  extends FilterState{
+final class UserFilterFinalizedState extends FilterState {
   final int updated;
   @override
   List<Object> get props => [updated];
 
- const  UserFilterFinalizedState({required this.updated});
+  const UserFilterFinalizedState({required this.updated});
+}
+
+final class UserUpdatedPageNumState extends FilterState {
+  final int updated;
+  @override
+  List<Object> get props => [updated];
+  const UserUpdatedPageNumState({required this.updated});
 }

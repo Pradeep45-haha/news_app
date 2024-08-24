@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'package:flutter/foundation.dart';
 import 'package:news_app/features/daily_news/data/data_sources/local/i_local_database.dart';
 import 'package:path/path.dart';
 import 'package:path_provider/path_provider.dart';
@@ -6,7 +7,7 @@ import 'package:sqflite/sqflite.dart';
 
 class DatabaseHelper implements ILocalDatabase {
   late Database _db;
-  late Directory _appDirPath;
+  Directory? _appDirPath;
   final _dbName = "news.db";
   final _tableName = "NEWS_ARTICLES";
 
@@ -15,15 +16,21 @@ class DatabaseHelper implements ILocalDatabase {
   }
 
   @override
-  Future<Database> createDatabase() async {
-    _appDirPath = await getApplicationDocumentsDirectory();
-    String path = join(_appDirPath.path, _dbName);
-    _db = await openDatabase(
-      path,
-      version: 1,
-    );
-    createSchema(db: _db);
-    return _db;
+  createDatabase() async {
+    try {
+      if (!(kIsWeb || Platform.isLinux|| Platform.isWindows )) {
+        _appDirPath = await getApplicationDocumentsDirectory();
+        String path = join(_appDirPath!.path, _dbName);
+        _db = await openDatabase(
+          path,
+          version: 1,
+        );
+        createSchema(db: _db);
+        return _db;
+      }
+    } catch (e) {
+      debugPrint(e.toString());
+    }
   }
 
   @override

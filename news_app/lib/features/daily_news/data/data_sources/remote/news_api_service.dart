@@ -6,13 +6,15 @@ import 'package:http/http.dart';
 
 class RemoteNewsApiService {
   Future<DataState> getNewsArticles(
-      {required String apiKey,
-      required String country,
-      required String category}) async {
+      {required String country,
+      required String category,
+      required int pageSize,
+      required int pageNum}) async {
     try {
       Response httpResponse = await get(
         Uri.parse(urlBuilder(
-          apiKey: apiKey,
+          articlesPerPage: pageSize,
+          page: pageNum,
           category: category,
           country: country,
         )),

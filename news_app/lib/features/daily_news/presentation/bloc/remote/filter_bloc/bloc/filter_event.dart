@@ -31,6 +31,13 @@ final class UserUpdatedCategoryEvent extends FilterEvent {
   });
 }
 
+final class UserChangedPageNumEvent extends FilterEvent {
+  final int pageNum;
+  const UserChangedPageNumEvent({required this.pageNum});
+  @override
+  List<Object> get props => [pageNum];
+}
+
 final class UserUpdatedCountryEvent extends FilterEvent {
   @override
   List<Object> get props => [country];
@@ -67,4 +74,6 @@ final class ShowCountrySelectionMenuEvent extends FilterEvent {
 
 final class CloseCountrySelectionMenuEvent extends FilterEvent {
   const CloseCountrySelectionMenuEvent();
+  @override
+  List<Object> get props => [];
 }

@@ -3,8 +3,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:news_app/config/theme/themes.dart';
 import 'package:news_app/features/daily_news/presentation/bloc/remote/article_bloc/bloc/article_bloc.dart';
 import 'package:news_app/features/daily_news/presentation/bloc/remote/filter_bloc/bloc/filter_bloc.dart';
+import 'package:news_app/features/daily_news/presentation/bloc/remote/url_launch_bloc/url_launch_bloc.dart';
 import 'package:news_app/features/daily_news/presentation/pages/home/news_page.dart';
-
 import 'package:news_app/injections/injections.dart';
 
 void main() async {
@@ -18,14 +18,16 @@ void main() async {
           create: (context) => ArticleBloc(
             serviceLocator.get(),
             serviceLocator.get(),
-            serviceLocator.get(),
-            serviceLocator.get(),
-            serviceLocator.get(),
           ),
         ),
         BlocProvider(
           create: (context) => serviceLocator.get<FilterBloc>(),
         ),
+        BlocProvider(
+          create: (context) => UrlLaunchBloc(
+            openNews: serviceLocator.get(),
+          ),
+        )
       ],
       child: const MyApp(),
     ),

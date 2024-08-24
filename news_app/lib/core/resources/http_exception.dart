@@ -62,3 +62,5 @@ class HttpUnexpectedException implements ClientException {
   @override
   Uri? get uri => Uri.parse("no url");
 }
+
+

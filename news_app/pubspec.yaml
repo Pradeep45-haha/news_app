@@ -39,13 +39,13 @@ dependencies:
   equatable: ^2.0.5
   get_it: ^7.6.0
   intl: ^0.18.1
-  flutter_hooks: ^0.20.0
   cached_network_image: ^3.2.3
   http: ^1.1.0
   sqflite: ^2.3.0
   path: ^1.8.3
-  path_provider: ^2.1.1
+  path_provider: ^2.1.2
   connectivity_plus: ^4.0.2
+  url_launcher: ^6.3.0
  
 
 dev_dependencies:
@@ -58,9 +58,7 @@ dev_dependencies:
   # package. See that file for information about deactivating specific lint
   # rules and activating additional ones.
   flutter_lints: ^2.0.0
-  retrofit_generator: ^7.0.8
-  floor_generator: ^1.4.2
-  build_runner: ^2.4.6
+ 
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
